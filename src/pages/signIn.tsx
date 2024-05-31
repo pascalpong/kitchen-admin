@@ -16,6 +16,8 @@ import { createTheme } from '@mui/material/styles';
 import { signInWithGooglePopup } from '@/services/firebase';
 import { useAuthGoogleMutation } from '@/api/AuthService';
 import { Divider } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { cookies } from 'next/headers';
 
 function Copyright(props: any) {
   return (
@@ -30,19 +32,21 @@ function Copyright(props: any) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
-
 export default function SignIn() {
+
+  const router = useRouter()
+
   const [ googleAuth ] = useAuthGoogleMutation(); 
-
-
     const logGoogleUser = async () => {
         const response = await signInWithGooglePopup();
         const { user } = response;
-        console.log(response, 'response')
         const result = await googleAuth(user);
-        console.log(result,'resultresultresultresultresultresult')
+        if(result.data.data) {
+          const { data } = result.data;
+          localStorage.setItem("accessToken", data.accessToken);
+          localStorage.setItem("userKey", data.publicKey)
+          router.push('/dashboard')
+        }
     }
 
   return (

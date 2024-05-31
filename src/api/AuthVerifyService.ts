@@ -1,13 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithoutToken } from './baseQuery';
 
-export const AuthService = createApi({
-    reducerPath: 'AuthService',
+export const AuthVerifyService = createApi({
+    reducerPath: 'AuthVerifyService',
     baseQuery: baseQueryWithoutToken,
     endpoints: (builder) => ({
-      authGoogle: builder.mutation<any, any>({
+      authVerifyUser: builder.mutation<any, any>({
         query: (body) => ({
-          url: '/auth/google',
+          url: '/auth/verify-user',
           method: 'POST',
           body
         })
@@ -15,4 +15,4 @@ export const AuthService = createApi({
     })
 });
   
-export const { useAuthGoogleMutation } = AuthService;
+export const { useAuthVerifyUserMutation } = AuthVerifyService;
