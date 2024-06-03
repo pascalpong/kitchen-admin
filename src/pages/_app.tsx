@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 import { store } from '@/app/store';
 import { useRouter } from 'next/navigation';
+import Layout from '@/components/layout';
  
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -52,7 +53,6 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           localStorage.removeItem('userKey')
           router.push('/signIn')
         } else {
-          console.log(verifyResult.data)
           localStorage.setItem('accessToken', verifyResult.data.accessToken)
         }
       } else {
@@ -67,9 +67,11 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
  
   return getLayout(
     <Provider store={store}>
-      <Component 
-        {...pageProps}
-      />
+      <Layout>
+        <Component
+          {...pageProps}
+        />
+      </Layout>
     </Provider>
   )
 }
