@@ -3,17 +3,20 @@ import { configureStore } from '@reduxjs/toolkit';
 import commonSlice from './commonSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { AuthVerifyService } from '@/api/AuthVerifyService';
+import { UserService } from '@/api/UserService';
 
 export const store = configureStore({
   reducer: {
     common: commonSlice,
     [AuthService.reducerPath]: AuthService.reducer,
     [AuthVerifyService.reducerPath]: AuthVerifyService.reducer,
+    [UserService.reducerPath]: UserService.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       AuthService.middleware,
       AuthVerifyService.middleware,
+      UserService.middleware,
     )
 });
 
