@@ -4,12 +4,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export const MainListItems = () => {
+  const router = useRouter()
 
   const pathname = usePathname()
 
@@ -17,7 +16,7 @@ export const MainListItems = () => {
     <React.Fragment>
       <ListItemButton
         className={`link ${pathname === '/dashboard' ? 'active' : ''}`}
-        href="/dashboard"
+        onClick={()=>router.push('/dashboard',{scroll: false})}
       > 
         <ListItemIcon>
           <DashboardIcon />
@@ -26,7 +25,7 @@ export const MainListItems = () => {
       </ListItemButton>
       <ListItemButton
         className={`link ${pathname === '/user' ? 'active' : ''}`}
-        href="/user"
+        onClick={()=>router.push('/user',{scroll: false})}
       > 
         <ListItemIcon>
           <DashboardIcon />
@@ -35,7 +34,7 @@ export const MainListItems = () => {
       </ListItemButton>
       <ListItemButton
         className={`link ${pathname === '/category' ? 'active' : ''}`}
-        href="/category"
+        onClick={()=>router.push('/category',{scroll: false})}
       > 
         <ListItemIcon>
           <DashboardIcon />
@@ -44,7 +43,7 @@ export const MainListItems = () => {
       </ListItemButton>
       <ListItemButton
         className={`link ${pathname === '/item' ? 'active' : ''}`}
-        href="/item"
+        onClick={()=>router.push('/item',{scroll: false})}
       > 
         <ListItemIcon>
           <DashboardIcon />

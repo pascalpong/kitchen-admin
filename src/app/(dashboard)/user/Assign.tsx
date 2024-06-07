@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import SnackbarNotify from "@/components/SnackBar";
+import { useAssignUserTypeMutation } from "@/api/UserService";
 
 interface Notify {
     open: boolean,
@@ -10,8 +11,9 @@ interface Notify {
     color: AlertColor
 }
 
-const Assign = ({data}: {data: any[]}) => {
+const Assign = ({data, toRefetch}: {data: any[], toRefetch:(refresh:boolean)=>void}) => {
 
+    const [ toAssignType ] = useAssignUserTypeMutation()
     const [ notify, setNotify ] = useState<Notify>({
         open: false,
         message: "",
@@ -23,15 +25,18 @@ const Assign = ({data}: {data: any[]}) => {
         setRows(data)
     },[data])
 
-    const assingType = async (assign: string, type: string) => {
-        if(assign === type) {
+    const assingType = async (assignType: string, currectType: string, userId: number) => {
+        if(assignType === currectType) {
             setNotify({
                 open: true,
                 message: "Message",
                 color: "error"
             })
         } else {
-
+            const assign = await toAssignType({type: assignType, userId});
+            if(assign.data.success) {
+                toRefetch(true)
+            }
         }
     }
 
@@ -65,7 +70,7 @@ const Assign = ({data}: {data: any[]}) => {
                                         variant={row.type === 'admin' ? "contained" : "outlined"} 
                                         size="small" color="error" 
                                         startIcon={<AdminPanelSettingsOutlinedIcon />}
-                                        onClick={()=>assingType('admin', row.type)}
+                                        onClick={()=>assingType('admin', row.type, row.id)}
                                     >
                                         Admin
                                     </Button>
@@ -73,7 +78,7 @@ const Assign = ({data}: {data: any[]}) => {
                                         variant={row.type === 'employee' ? "contained" : "outlined"} 
                                         size="small" color="primary" 
                                         startIcon={<GroupOutlinedIcon />}
-                                        onClick={()=>assingType('employee', row.type)}
+                                        onClick={()=>assingType('employee', row.type, row.id)}
                                     >
                                         Employee
                                     </Button>

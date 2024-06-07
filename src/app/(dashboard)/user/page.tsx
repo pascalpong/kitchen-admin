@@ -48,13 +48,21 @@ const UserTable = () => {
   const router = useRouter()
   const pathName = usePathname()
 
-  const getUsers = useGetUsersQuery({})
+  const { data: getUsers, refetch } = useGetUsersQuery({})
   const [ users, setUsers ] = useState<any[]>([]);
   const [ path, setPath ] = useState('table')
+  const [ refetchData, setRefetchData ] = useState<boolean>(false)
 
   useEffect(() => {
-    if(getUsers.isSuccess) {
-      const data = getUsers.data.data;
+    if(refetchData) {
+      refetch()
+      setRefetchData(false)
+    }
+  },[refetchData])
+
+  useEffect(() => {
+    if(getUsers) {
+      const data = getUsers.data;
       setUsers(data)
     }
   },[getUsers])
@@ -105,7 +113,7 @@ const UserTable = () => {
           { path === "table" && (
             <DataTable data={users} headCells={headCells} />
           ) || path === "assign" && (
-            <Assign data={users}/>
+            <Assign data={users} toRefetch={setRefetchData}/>
           )}
         </Box>
       </Paper>

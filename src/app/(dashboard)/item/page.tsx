@@ -1,9 +1,9 @@
 "use client";
 
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useCreateCategoryMutation, useGetCategoriesQuery } from '@/api/CategoryService';
-import CreateCategory from './CreateCategory';
+import CreateCategory from './CreateItems';
 import DataTable from './DataTable';
  
 
@@ -55,6 +55,7 @@ const UserTable = () => {
       toCreateCategories(valueList)
     }
   },[valueList])
+
    
   return (
       <>
@@ -65,7 +66,7 @@ const UserTable = () => {
       >
         <Box py={1}>
           <CreateCategory valueList={setValueList} toClear={toClear} setToClear={setToClear} />
-        </Box>
+        </Box> 
         <Box>
           { path === "table" && (
             <DataTable data={categories} headCells={headCells} />
