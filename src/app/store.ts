@@ -5,6 +5,8 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { AuthVerifyService } from '@/api/AuthVerifyService';
 import { UserService } from '@/api/UserService';
 import { CategoryService } from '@/api/CategoryService';
+import { OrderService } from '@/api/OrderService';
+import { LotService } from '@/api/LotService';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +15,8 @@ export const store = configureStore({
     [AuthVerifyService.reducerPath]: AuthVerifyService.reducer,
     [UserService.reducerPath]: UserService.reducer,
     [CategoryService.reducerPath]: CategoryService.reducer,
+    [OrderService.reducerPath]: OrderService.reducer,
+    [LotService.reducerPath]: LotService.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -20,6 +24,8 @@ export const store = configureStore({
       AuthVerifyService.middleware,
       UserService.middleware,
       CategoryService.middleware,
+      OrderService.middleware,
+      LotService.middleware,
     )
 });
 
