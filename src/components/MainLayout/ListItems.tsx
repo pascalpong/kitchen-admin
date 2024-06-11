@@ -61,7 +61,7 @@ export const SecondaryListItems = () => {
   return(
     <React.Fragment>
       <ListSubheader component="div" inset>
-        Orders and Lots
+        Orders, Lots and Bills
       </ListSubheader>
       <ListItemButton
         onClick={()=>router.push('/order',{scroll: false})}
@@ -78,6 +78,14 @@ export const SecondaryListItems = () => {
           <AssignmentIcon />
         </ListItemIcon>
         <ListItemText primary="Lots" />
+      </ListItemButton>
+      <ListItemButton
+        onClick={()=>router.push('/bill',{scroll: false})}
+      >
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Bills" />
       </ListItemButton>
     </React.Fragment>
   )

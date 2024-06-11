@@ -1,20 +1,19 @@
 "use client";
 
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"; 
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"; 
 import { useRouter } from "next/navigation";
-import { useCallback } from "react";
+import StatusSwitch from "./StatusSwitch";
 
 
 const getNestedValue = (obj: any, path: any) => {
     return path.split('.').reduce((acc: any, part: any) => acc && acc[part], obj);
 };
 
+const label = { inputProps: { 'aria-label': 'Color switch demo' } };
+
 const DataTable = ({ data, headCells }:{ data:any[], headCells:any[] }) => {
 
-    const router = useRouter(); 
-    const routeTo = useCallback((path: string) => {
-        router.push(path, { scroll: false });
-    }, [router]);
+    const router = useRouter();
 
     return (
         <TableContainer component={Paper}>
@@ -22,7 +21,7 @@ const DataTable = ({ data, headCells }:{ data:any[], headCells:any[] }) => {
             <TableHead>
                 <TableRow>
                     {headCells.map((cell, key) => (
-                        <TableCell key={key}>{cell.label}</TableCell>
+                        <TableCell align="center" key={key}>{cell.label}</TableCell>
                     ))}
                 </TableRow>
             </TableHead>
@@ -30,11 +29,16 @@ const DataTable = ({ data, headCells }:{ data:any[], headCells:any[] }) => {
                 {data.map((datum, key) => (
                 <TableRow
                     key={key}
-                    onClick={() => routeTo(`/item/${datum.id}`)}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }} 
                 >
                     {headCells.map((cell, key) => (
-                        <TableCell key={key}>{getNestedValue(datum, cell.name)}</TableCell>
+                            <TableCell align="center" key={key}>
+                            { cell.name === "status" ? (
+                                <StatusSwitch lotId={datum.id} initStatus={getNestedValue(datum, cell.name)}/> 
+                            ) :
+                                <Typography>{getNestedValue(datum, cell.name)}</Typography>
+                            }
+                            </TableCell> 
                     ))}
                 </TableRow>
                 ))}

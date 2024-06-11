@@ -18,9 +18,9 @@ export const LotService = createApi({
           body
         })
       }),
-      updateLot: builder.mutation<any, any>({
+      updateLotStatus: builder.mutation<any, any>({
         query: (body) => ({
-          url: '/lot/update',
+          url: '/lot/update/status',
           method: 'PATCH',
           body
         })
@@ -28,4 +28,4 @@ export const LotService = createApi({
     })
 });
   
-export const { useGetLotsQuery, useCreateLotsMutation, useUpdateLotMutation } = LotService;
+export const { useGetLotsQuery, useCreateLotsMutation, useUpdateLotStatusMutation } = LotService;

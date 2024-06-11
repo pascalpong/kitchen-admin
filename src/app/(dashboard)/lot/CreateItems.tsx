@@ -4,11 +4,11 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import TheInput from "./TheInput";
 
 const CreateItems = ({valueList, toClear, setToClear}: {valueList: (values: any[]) => void, toClear: boolean, setToClear:(clear: boolean)=>void}) => {
-    const [inputs, setInputs] = useState([{ id: '0', name: '', price: '', image: null }]);
+    const [inputs, setInputs] = useState([{ id: '0', name: '', amount: 0 }]);
 
     useEffect(() => {
       if (toClear) {
-        setInputs([{ id: '0', name: '', price: '', image: null }]);
+        setInputs([{ id: '0', name: '', amount: 0 }]);
         setToClear(false);
       }
     }, [toClear]);
@@ -18,12 +18,12 @@ const CreateItems = ({valueList, toClear, setToClear}: {valueList: (values: any[
     };
   
     const addInput = () => {
-      setInputs(prevInputs => [...prevInputs, { id: `${prevInputs.length}`, name: '', price: '', image: null }]);
+      setInputs(prevInputs => [...prevInputs, { id: `${prevInputs.length}`, name: '', amount: 0 }]);
     };
   
     const toSubmit = async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      const values = inputs.filter(input => input.name !== "" || input.price !== "" || input.image !== null);
+      const values = inputs.filter(input => input.name !== "" || input.amount !== 0 );
       valueList(values);
     };
 
@@ -35,8 +35,7 @@ const CreateItems = ({valueList, toClear, setToClear}: {valueList: (values: any[
                     key={index}
                     id={input.id}
                     name={input.name}
-                    price={input.price}
-                    image={input.image}
+                    amount={input.amount}
                     handleChange={handleChange}
                 />
                 ))}

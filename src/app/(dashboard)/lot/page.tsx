@@ -13,8 +13,12 @@ const headCells = [
     label: 'Full name'
   },
   {
-    name: 'User.name',
-    label: 'Created by'
+    name: 'amount',
+    label: 'Amount'
+  },
+  {
+    name: 'status',
+    label: 'Status'
   },
 ];
 
@@ -42,9 +46,9 @@ const UserTable = () => {
     }
   },[getLots])
 
-  const toCreateCategories = async (names: string[]) => {
-    const categories = await createLots({names})
-    if(categories.data.success) {
+  const toCreateCategories = async (data: any[]) => {
+    const items = await createLots({data})
+    if(items.data.success) {
       setToClear(true)
       refetch()
     }
@@ -56,7 +60,6 @@ const UserTable = () => {
     }
   },[valueList])
 
-   
   return (
       <>
       <Paper elevation={3} 
