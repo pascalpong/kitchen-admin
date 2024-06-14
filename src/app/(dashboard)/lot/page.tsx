@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import CreateCategory from './CreateItems';
 import DataTable from './DataTable';
 import { useCreateLotsMutation, useGetLotsQuery } from '@/api/LotService';
+import withAuth from '@/hoc/withAuth';
  
 
 const headCells = [
@@ -19,6 +20,10 @@ const headCells = [
   {
     name: 'status',
     label: 'Status'
+  },
+  {
+    name: 'qrcode',
+    label: 'QR Code'
   },
 ];
 
@@ -80,4 +85,4 @@ const UserTable = () => {
   );
 }
 
-export default UserTable;
+export default withAuth(UserTable);

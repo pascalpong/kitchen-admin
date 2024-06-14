@@ -1,8 +1,12 @@
 "use client";
 
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"; 
+import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"; 
 import { useRouter } from "next/navigation";
 import StatusSwitch from "./StatusSwitch";
+import { useCreateBillMutation } from "@/api/BillService";
+import { useState } from "react";
+import ImageWithEnlargeAndDownload from "@/components/ImageWithEnlargeAndDownload";
+import OpenBill from "./OpenBill";
 
 
 const getNestedValue = (obj: any, path: any) => {
@@ -13,8 +17,6 @@ const label = { inputProps: { 'aria-label': 'Color switch demo' } };
 
 const DataTable = ({ data, headCells }:{ data:any[], headCells:any[] }) => {
 
-    const router = useRouter();
-
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -23,6 +25,8 @@ const DataTable = ({ data, headCells }:{ data:any[], headCells:any[] }) => {
                     {headCells.map((cell, key) => (
                         <TableCell align="center" key={key}>{cell.label}</TableCell>
                     ))}
+                    <TableCell align="center">QR Code</TableCell>
+                    <TableCell align="center"></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody> 
@@ -35,11 +39,16 @@ const DataTable = ({ data, headCells }:{ data:any[], headCells:any[] }) => {
                             <TableCell align="center" key={key}>
                             { cell.name === "status" ? (
                                 <StatusSwitch lotId={datum.id} initStatus={getNestedValue(datum, cell.name)}/> 
-                            ) :
+                            ) : cell.name === "qrcode" ? (
+                                <ImageWithEnlargeAndDownload src={`${process.env.NEXT_PUBLIC_API_URL}/${getNestedValue(datum, cell.name)}`} alt="" />
+                            ) : (
                                 <Typography>{getNestedValue(datum, cell.name)}</Typography>
-                            }
+                            ) }
                             </TableCell> 
                     ))}
+                    <TableCell>
+                        <OpenBill lotId={datum.id} status={datum.status} bills={datum.Bill} />
+                    </TableCell>
                 </TableRow>
                 ))}
             </TableBody>

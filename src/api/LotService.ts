@@ -11,6 +11,12 @@ export const LotService = createApi({
           method: 'GET'
         })
       }),
+      getLotDetails: builder.query<any, any>({
+        query: ({id}) => ({
+          url: `/lot/${id}`,
+          method: 'GET'
+        })
+      }),
       createLots: builder.mutation<any, any>({
         query: (body) => ({
           url: '/lot/create',
@@ -28,4 +34,4 @@ export const LotService = createApi({
     })
 });
   
-export const { useGetLotsQuery, useCreateLotsMutation, useUpdateLotStatusMutation } = LotService;
+export const { useGetLotsQuery, useCreateLotsMutation, useUpdateLotStatusMutation, useGetLotDetailsQuery } = LotService;

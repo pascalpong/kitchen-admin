@@ -4,6 +4,7 @@ import { Box, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import DataTable from './DataTable';
 import { useGetOrdersQuery } from '@/api/OrderService';
+import withAuth from '@/hoc/withAuth';
  
 
 const headCells = [
@@ -61,4 +62,4 @@ const UserTable = () => {
   );
 }
 
-export default UserTable;
+export default withAuth(UserTable);

@@ -7,6 +7,7 @@ import Link from '@mui/material/Link';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import withAuth from '@/hoc/withAuth';
 
 function Copyright(props: any) {
   return (
@@ -24,7 +25,7 @@ function Copyright(props: any) {
 
 
 
-export default function Dashboard() {
+const Dashboard = () => {
 
   return (
     <>
@@ -66,3 +67,5 @@ export default function Dashboard() {
     </>
   );
 }
+
+export default withAuth(Dashboard)

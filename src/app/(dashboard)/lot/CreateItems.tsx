@@ -23,7 +23,7 @@ const CreateItems = ({valueList, toClear, setToClear}: {valueList: (values: any[
   
     const toSubmit = async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      const values = inputs.filter(input => input.name !== "" || input.amount !== 0 );
+      const values = inputs.filter(input => input.name !== "");
       valueList(values);
     };
 

@@ -7,6 +7,8 @@ import { UserService } from '@/api/UserService';
 import { CategoryService } from '@/api/CategoryService';
 import { OrderService } from '@/api/OrderService';
 import { LotService } from '@/api/LotService';
+import { BillService } from '@/api/BillService';
+import { ScanService } from '@/api/ScanService';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +19,8 @@ export const store = configureStore({
     [CategoryService.reducerPath]: CategoryService.reducer,
     [OrderService.reducerPath]: OrderService.reducer,
     [LotService.reducerPath]: LotService.reducer,
+    [BillService.reducerPath]: BillService.reducer,
+    [ScanService.reducerPath]: ScanService.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -26,6 +30,8 @@ export const store = configureStore({
       CategoryService.middleware,
       OrderService.middleware,
       LotService.middleware,
+      BillService.middleware,
+      ScanService.middleware,
     )
 });
 

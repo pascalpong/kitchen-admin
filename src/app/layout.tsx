@@ -41,28 +41,28 @@ export default function RootLayout({
     }
   }
 
-  useEffect(() => {
-    const checkVerify = async () => {
-      const accessToken = localStorage.getItem('accessToken')
-      if(accessToken) {
-        const publicKey = localStorage.getItem('userKey') as string
-        const verifyResult = await verify(accessToken, publicKey);
-        if(!verifyResult.success) {
-          localStorage.removeItem('accessToken')
-          localStorage.removeItem('userKey')
-          router.push('/signIn')
-        } else {
-          localStorage.setItem('accessToken', verifyResult.data.accessToken)
-        }
-      } else {
-        localStorage.removeItem('accessToken')
-        localStorage.removeItem('userKey')
-        router.push('/signIn')
-      }
-    }
+  // useEffect(() => {
+  //   const checkVerify = async () => {
+  //     const accessToken = localStorage.getItem('accessToken')
+  //     if(accessToken) {
+  //       const publicKey = localStorage.getItem('userKey') as string
+  //       const verifyResult = await verify(accessToken, publicKey);
+  //       if(!verifyResult.success) {
+  //         localStorage.removeItem('accessToken')
+  //         localStorage.removeItem('userKey')
+  //         router.push('/signIn')
+  //       } else {
+  //         localStorage.setItem('accessToken', verifyResult.data.accessToken)
+  //       }
+  //     } else {
+  //       localStorage.removeItem('accessToken')
+  //       localStorage.removeItem('userKey')
+  //       router.push('/signIn')
+  //     }
+  //   }
 
-    checkVerify()
-  },[])
+  //   checkVerify()
+  // },[])
 
 
   const [mode, setMode] = useState<'light' | 'dark'>('light');
