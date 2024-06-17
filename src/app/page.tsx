@@ -1,9 +1,9 @@
-import { Metadata } from 'next'
- 
-export const metadata: Metadata = {
-  title: 'My Page Title',
-}
- 
-export default function Page() {
+"use client";
+
+import withAuth from '@/hoc/withAuth';
+
+const Page = () => {
   return '...'
 }
+
+export default withAuth(Page);

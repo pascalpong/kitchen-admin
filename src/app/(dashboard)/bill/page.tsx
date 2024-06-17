@@ -4,6 +4,7 @@ import { Box, Grid, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import DataTable from './DataTable';
 import { useGetBillsQuery } from '@/api/BillService';
+import withAuth from '@/hoc/withAuth';
  
 
 const headCells = [
@@ -56,4 +57,4 @@ const BillTable = () => {
   );
 }
 
-export default BillTable;
+export default withAuth(BillTable);

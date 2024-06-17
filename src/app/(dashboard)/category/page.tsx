@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useCreateCategoryMutation, useGetCategoriesQuery } from '@/api/CategoryService';
 import CreateCategory from './CreateCategory';
 import DataTable from './DataTable';
+import withAuth from '@/hoc/withAuth';
  
 
 const headCells = [
@@ -76,4 +77,4 @@ const UserTable = () => {
   );
 }
 
-export default UserTable;
+export default withAuth(UserTable);
