@@ -8,6 +8,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { usePathname, useRouter } from 'next/navigation';
 import Assign from './Assign';
+import withAuth from '@/hoc/withAuth';
  
 
 const headCells = [
@@ -121,4 +122,4 @@ const UserTable = () => {
   );
 }
 
-export default UserTable;
+export default withAuth(UserTable);

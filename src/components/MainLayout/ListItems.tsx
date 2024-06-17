@@ -54,16 +54,40 @@ export const MainListItems = () => {
   );
 }
 
-export const secondaryListItems = (
-  <React.Fragment>
-    <ListSubheader component="div" inset>
-      Saved reports
-    </ListSubheader>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItemButton>
-  </React.Fragment>
-);
+export const SecondaryListItems = () => {
+
+  const router = useRouter()
+
+  return(
+    <React.Fragment>
+      <ListSubheader component="div" inset>
+        Orders, Lots and Bills
+      </ListSubheader>
+      <ListItemButton
+        onClick={()=>router.push('/order',{scroll: false})}
+      >
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Orders" />
+      </ListItemButton>
+      <ListItemButton
+        onClick={()=>router.push('/lot',{scroll: false})}
+      >
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Lots" />
+      </ListItemButton>
+      <ListItemButton
+        onClick={()=>router.push('/bill',{scroll: false})}
+      >
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Bills" />
+      </ListItemButton>
+    </React.Fragment>
+  )
+}
+

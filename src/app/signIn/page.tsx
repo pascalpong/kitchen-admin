@@ -3,7 +3,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -14,12 +13,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import GoogleIcon from '@mui/icons-material/Google';
-import { createTheme } from '@mui/material/styles';
 import { signInWithGooglePopup } from '@/services/firebase';
 import { useAuthGoogleMutation } from '@/api/AuthService';
 import { Divider } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { cookies } from 'next/headers';
+import withAuth from '@/hoc/withAuth';
 
 function Copyright(props: any) {
   return (
@@ -34,7 +32,7 @@ function Copyright(props: any) {
   );
 }
 
-export default function SignIn() {
+const SignIn = () => {
 
   const router = useRouter()
 
@@ -127,3 +125,5 @@ export default function SignIn() {
     </Container>
   );
 }
+
+export default SignIn;

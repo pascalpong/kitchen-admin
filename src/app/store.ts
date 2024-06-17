@@ -5,7 +5,10 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { AuthVerifyService } from '@/api/AuthVerifyService';
 import { UserService } from '@/api/UserService';
 import { CategoryService } from '@/api/CategoryService';
-import { ItemService } from '@/api/ItemService';
+import { OrderService } from '@/api/OrderService';
+import { LotService } from '@/api/LotService';
+import { BillService } from '@/api/BillService';
+import { ScanService } from '@/api/ScanService';
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +17,10 @@ export const store = configureStore({
     [AuthVerifyService.reducerPath]: AuthVerifyService.reducer,
     [UserService.reducerPath]: UserService.reducer,
     [CategoryService.reducerPath]: CategoryService.reducer,
-    [ItemService.reducerPath]: ItemService.reducer,
+    [OrderService.reducerPath]: OrderService.reducer,
+    [LotService.reducerPath]: LotService.reducer,
+    [BillService.reducerPath]: BillService.reducer,
+    [ScanService.reducerPath]: ScanService.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -22,7 +28,10 @@ export const store = configureStore({
       AuthVerifyService.middleware,
       UserService.middleware,
       CategoryService.middleware,
-      ItemService.middleware,
+      OrderService.middleware,
+      LotService.middleware,
+      BillService.middleware,
+      ScanService.middleware,
     )
 });
 

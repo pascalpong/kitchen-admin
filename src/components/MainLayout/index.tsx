@@ -6,7 +6,7 @@ import { ReactNode, useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { MainListItems, secondaryListItems } from './ListItems';
+import { MainListItems, SecondaryListItems } from './ListItems';
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -121,7 +121,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
                 <List component="nav">
                     <MainListItems/>
                     <Divider sx={{ my: 1 }} />
-                    {secondaryListItems}
+                    <SecondaryListItems/>
                 </List>
             </Drawer>
             <Box
