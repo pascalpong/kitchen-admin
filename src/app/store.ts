@@ -1,10 +1,11 @@
-import { AuthService } from '@/api/AuthService';      
+import { AuthService } from '@/api/AuthService';
 import { configureStore } from '@reduxjs/toolkit';
 import commonSlice from './commonSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { AuthVerifyService } from '@/api/AuthVerifyService';
 import { UserService } from '@/api/UserService';
 import { CategoryService } from '@/api/CategoryService';
+import { ItemService } from '@/api/ItemService';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     [AuthVerifyService.reducerPath]: AuthVerifyService.reducer,
     [UserService.reducerPath]: UserService.reducer,
     [CategoryService.reducerPath]: CategoryService.reducer,
+    [ItemService.reducerPath]: ItemService.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -20,6 +22,7 @@ export const store = configureStore({
       AuthVerifyService.middleware,
       UserService.middleware,
       CategoryService.middleware,
+      ItemService.middleware,
     )
 });
 
