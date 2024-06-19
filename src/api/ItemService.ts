@@ -20,5 +20,4 @@ export const ItemService = createApi({
       })
     })
 });
-  
 export const { useGetItemsQuery, useCreateItemsMutation } = ItemService;

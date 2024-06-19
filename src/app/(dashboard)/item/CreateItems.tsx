@@ -2,12 +2,25 @@
 
 import { Box, Button, Grid, IconButton, Stack, TextField } from "@mui/material";
 import { FormEvent, useEffect, useState } from "react";
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import TheInput from "./TheInput";
 import { useGetCategoriesQuery } from "@/api/CategoryService";
 
-const CreateItems = ({valueList, toClear, setToClear}: {valueList: (values: any[]) => void, toClear: boolean, setToClear:(clear: boolean)=>void}) => {
-    const [inputs, setInputs] = useState([{ id: '0', name: '', price: '', image: null }]);
+const CreateItems = ({
+  valueList,
+  toClear,
+  setToClear,
+  categoryList,
+}: {
+  valueList: (values: any[]) => void;
+  toClear: boolean;
+  setToClear: (clear: boolean) => void;
+  categoryList: any[];
+}) => {
+  console.log(categoryList);
+  const [inputs, setInputs] = useState([
+    { id: "0", name: "", price: "", image: null },
+  ]);
 
     const { data: getCategories } = useGetCategoriesQuery({})
     useEffect(() => {
@@ -80,6 +93,7 @@ const CreateItems = ({valueList, toClear, setToClear}: {valueList: (values: any[
             </Stack>
         </form>
     );
-}
+  };
+ 
 
 export default CreateItems;

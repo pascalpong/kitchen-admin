@@ -1,4 +1,4 @@
-import { AuthService } from '@/api/AuthService';      
+import { AuthService } from '@/api/AuthService';
 import { configureStore } from '@reduxjs/toolkit';
 import commonSlice from './commonSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
