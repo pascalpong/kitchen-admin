@@ -10,7 +10,7 @@ import {
     baseUrl: `${process.env.NEXT_PUBLIC_API_URL}`,
     prepareHeaders: (headers) => {
       const accessToken = localStorage.getItem("accessToken");
-      const publicKey = localStorage.getItem("userKey");
+      const publicKey = localStorage.getItem("userKey"); 
       if (accessToken) {
         headers.set("Authorization", `Bearer ${accessToken}`);
         headers.set("user-key", `${publicKey}`);

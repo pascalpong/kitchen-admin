@@ -42,7 +42,7 @@ const SignIn = () => {
         const { user } = response;
         const result = await googleAuth(user);
         if(result.data.data) {
-          const { data } = result.data;
+          const { data } = result.data; 
           localStorage.setItem("accessToken", data.accessToken);
           localStorage.setItem("userKey", data.publicKey)
           router.push('/dashboard')

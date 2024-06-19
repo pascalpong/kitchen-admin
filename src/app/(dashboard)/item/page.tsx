@@ -6,6 +6,7 @@ import { useCreateCategoryMutation, useGetCategoriesQuery } from '@/api/Category
 import CreateCategory from './CreateItems';
 import DataTable from './DataTable';
 import withAuth from '@/hoc/withAuth';
+import { useCreateItemsMutation, useGetItemsQuery } from '@/api/ItemService';
  
 
 const headCells = [
@@ -21,12 +22,12 @@ const headCells = [
 
 const UserTable = () => {
 
-  const { data: getCategories, refetch } = useGetCategoriesQuery({})
-  const [ categories, setCategories ] = useState<any[]>([]);
+  const { data: getItems, refetch } = useGetItemsQuery({})
+  const [ items, setItems ] = useState<any[]>([]);
   const [ path, setPath ] = useState('table')
   const [ refetchData, setRefetchData ] = useState<boolean>(false)
   const [valueList, setValueList] = useState<string[]>([])
-  const [ createCategories ] = useCreateCategoryMutation()
+  const [ createItems ] = useCreateItemsMutation()
   const [ toClear, setToClear ] = useState<boolean>(false)
 
   useEffect(() => {
@@ -37,14 +38,14 @@ const UserTable = () => {
   },[refetchData])
 
   useEffect(() => {
-    if(getCategories) {
-      const data = getCategories.data;
-      setCategories(data)
+    if(getItems) {
+      const data = getItems.data;
+      setItems(data)
     }
-  },[getCategories])
+  },[getItems])
 
-  const toCreateCategories = async (names: string[]) => {
-    const categories = await createCategories({names})
+  const toCreateCategories = async (items: string[]) => {
+    const categories = await createItems({items})
     if(categories.data.success) {
       setToClear(true)
       refetch()
@@ -53,6 +54,7 @@ const UserTable = () => {
 
   useEffect(() => {
     if(valueList.length > 0) {
+      console.log(valueList)
       toCreateCategories(valueList)
     }
   },[valueList])
@@ -70,7 +72,7 @@ const UserTable = () => {
         </Box> 
         <Box>
           { path === "table" && (
-            <DataTable data={categories} headCells={headCells} />
+            <DataTable data={items} headCells={headCells} />
           )}
         </Box>
       </Paper>

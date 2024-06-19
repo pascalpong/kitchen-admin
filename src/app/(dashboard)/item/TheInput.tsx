@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, DragEvent } from 'react';
 import { Box, Button, TextField, Grid, Select, MenuItem } from '@mui/material';
 
-const TheInput = ({ id, name, price, image, handleChange }: { id: string, name: string, price: string, image: string | null, handleChange: (id: string, field: string, value: string) => void }) => {
+const TheInput = ({ id, name, price, image, handleChange, selects }: { id: string, name: string, price: string, image: string | null, handleChange: (id: string, field: string, value: string) => void, selects: any[] }) => {
   const [imageSrc, setImageSrc] = useState<string | null>(image);
   const [dragging, setDragging] = useState(false);
 
@@ -80,12 +80,9 @@ const TheInput = ({ id, name, price, image, handleChange }: { id: string, name: 
                 id="demo-select-small" 
                 label="Age" 
             >
-                <MenuItem value="">
-                <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+              { selects.map((select: any, key: number) => 
+                <MenuItem key={key} value={select.id}>{select.name}</MenuItem>
+              )}
             </Select>
         </Grid>
         <Grid item xs={3}>

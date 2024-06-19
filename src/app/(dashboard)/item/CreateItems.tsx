@@ -1,10 +1,22 @@
+"use client";
+
 import { Box, Button, Grid, IconButton, Stack, TextField } from "@mui/material";
 import { FormEvent, useEffect, useState } from "react";
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import TheInput from "./TheInput";
+import { useGetCategoriesQuery } from "@/api/CategoryService";
 
 const CreateItems = ({valueList, toClear, setToClear}: {valueList: (values: any[]) => void, toClear: boolean, setToClear:(clear: boolean)=>void}) => {
     const [inputs, setInputs] = useState([{ id: '0', name: '', price: '', image: null }]);
+
+    const { data: getCategories } = useGetCategoriesQuery({})
+    useEffect(() => {
+        if(getCategories && getCategories.success) {
+            setCategories(getCategories.data)
+        }
+    },[getCategories])
+
+    const [ categories, setCategories ] = useState<any[]>([])
 
     useEffect(() => {
       if (toClear) {
@@ -38,6 +50,7 @@ const CreateItems = ({valueList, toClear, setToClear}: {valueList: (values: any[
                     price={input.price}
                     image={input.image}
                     handleChange={handleChange}
+                    selects={categories}
                 />
                 ))}
                 <Grid container columnSpacing ={1} columns={12}>

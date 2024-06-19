@@ -5,13 +5,13 @@ export const ItemService = createApi({
     reducerPath: 'ItemService',
     baseQuery: baseQueryWithToken,
     endpoints: (builder) => ({
-      getUsers: builder.query<any, any>({
+      getItems: builder.query<any, any>({
         query: () => ({
           url: '/item',
           method: 'GET'
         })
       }),
-      assignUserType: builder.mutation<any, any>({
+      createItems: builder.mutation<any, any>({
         query: (body) => ({
           url: '/item/create',
           method: 'POST',
@@ -21,4 +21,4 @@ export const ItemService = createApi({
     })
 });
   
-export const { useGetUsersQuery, useAssignUserTypeMutation } = ItemService;
+export const { useGetItemsQuery, useCreateItemsMutation } = ItemService;
