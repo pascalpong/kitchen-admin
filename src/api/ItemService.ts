@@ -12,10 +12,10 @@ export const ItemService = createApi({
         })
       }),
       createItems: builder.mutation<any, any>({
-        query: (body) => ({
+        query: (formData) => ({
           url: '/item/create',
           method: 'POST',
-          body
+          body: formData
         })
       })
     })

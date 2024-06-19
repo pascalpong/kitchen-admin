@@ -13,7 +13,7 @@ const DataTable = ({ data, headCells }:{ data:any[], headCells:any[] }) => {
 
     const router = useRouter(); 
     const routeTo = useCallback((path: string) => {
-        router.push(path, { scroll: false });
+        // router.push(path, { scroll: false });
     }, [router]);
 
     return (

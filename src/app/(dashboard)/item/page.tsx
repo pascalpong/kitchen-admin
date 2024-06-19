@@ -26,7 +26,7 @@ const UserTable = () => {
   const [categories, setCategories] = useState<any[]>([]);
   const [path, setPath] = useState("table");
   const [refetchData, setRefetchData] = useState<boolean>(false);
-  const [valueList, setValueList] = useState<string[]>([]);
+  const [valueList, setValueList] = useState<any>();
   const [createItems] = useCreateItemsMutation();
   const [toClear, setToClear] = useState<boolean>(false);
 
@@ -51,9 +51,9 @@ const UserTable = () => {
     }
   }, [itemList]);
 
-  const toCreateCategories = async (items: any[]) => {
-    console.log(items);
-    // const categories = await createItems({ names });
+  const toCreateCategories = async (items: any[]) => { 
+    const itemList = await createItems({ items });
+    console.log(itemList)
     // if (categories.data.success) {
     //   setToClear(true);
     //   refetch();
@@ -61,7 +61,7 @@ const UserTable = () => {
   };
 
   useEffect(() => {
-    if (valueList.length > 0) {
+    if (valueList) {
       toCreateCategories(valueList);
     }
   }, [valueList]);
@@ -84,7 +84,7 @@ const UserTable = () => {
         </Box>
         <Box>
           {path === "table" && (
-            <DataTable data={categories} headCells={headCells} />
+            <DataTable data={items} headCells={headCells} />
           )}
         </Box>
       </Paper>
