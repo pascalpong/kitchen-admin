@@ -1,7 +1,9 @@
 import { useState, ChangeEvent, DragEvent } from 'react';
 import { Box, Button, TextField, Grid, Select, MenuItem } from '@mui/material';
+import Image from 'next/image';
+import { resizeAndCompressImage } from './imageUtils';
 
-const TheInput = ({ id, name, price, image, handleChange, selects }: { id: string, name: string, price: string, image: string | null, handleChange: (id: string, field: string, value: string) => void, selects: any[] }) => {
+const TheInput = ({ id, name, price, categoryId, image, handleChange, selects }: { id: string, name: string, price: string, categoryId: string, image: string | null, handleChange: (id: string, field: string, value: string) => void, selects: any[] }) => {
   const [imageSrc, setImageSrc] = useState<string | null>(image);
   const [dragging, setDragging] = useState(false);
 
@@ -15,18 +17,28 @@ const TheInput = ({ id, name, price, image, handleChange, selects }: { id: strin
     setDragging(false);
   };
 
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+  const handleDrop = async (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setDragging(false);
     const file = e.dataTransfer.files[0];
+    console.log('Dropped file:', file); // Debug log
+
     if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        setImageSrc(result);
-        handleChange(id, 'image', result);
-      };
-      reader.readAsDataURL(file);
+      try {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const result = e.target?.result as string;
+          const compressedImage = await resizeAndCompressImage(result, 800, 0.7);
+          setImageSrc(compressedImage);
+          handleChange(id, 'image', compressedImage);
+        };
+        reader.onerror = (error) => console.error('FileReader error:', error);
+        reader.readAsDataURL(file);
+      } catch (error) {
+        console.error('Error processing image:', error);
+      }
+    } else {
+      console.log('Invalid file type or no file dropped');
     }
   };
 
@@ -78,7 +90,9 @@ const TheInput = ({ id, name, price, image, handleChange, selects }: { id: strin
                 size='small'
                 labelId="demo-select-small-label"
                 id="demo-select-small" 
-                label="Age" 
+                label="Categories"
+                value={categoryId}
+                onChange={(e) => handleChange(id, 'categoryId', e.target.value)}
             >
               { selects.map((select: any, key: number) => 
                 <MenuItem key={key} value={select.id}>{select.name}</MenuItem>
@@ -116,7 +130,7 @@ const TheInput = ({ id, name, price, image, handleChange, selects }: { id: strin
           </div>
           {imageSrc && (
             <Box mt={2} textAlign="center">
-              <img src={imageSrc} alt="Preview" style={{ maxWidth: '100%', height: 'auto' }} />
+              <Image src={imageSrc} alt="Preview" width={100} height={100} style={{ maxWidth: '100%', height: 'auto' }} />
               <Button variant="outlined" color="secondary" onClick={handleDeselectImage} style={{ marginTop: '10px' }}>
                 Deselect Image
               </Button>

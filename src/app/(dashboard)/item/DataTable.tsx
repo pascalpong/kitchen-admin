@@ -1,6 +1,7 @@
 "use client";
 
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"; 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 
@@ -34,6 +35,17 @@ const DataTable = ({ data, headCells }:{ data:any[], headCells:any[] }) => {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }} 
                 >
                     {headCells.map((cell, key) => (
+                        cell.name === "image" ? 
+                        <TableCell key={key}>
+                            <Image 
+                                src={`${process.env.NEXT_PUBLIC_API_URL}/public${getNestedValue(datum, cell.name)}`}
+                                alt={`Image for ${cell.label}`}
+                                width={50} 
+                                height={50} 
+                                style={{ objectFit: "contain" }}
+                            />
+                        </TableCell>
+                        :
                         <TableCell key={key}>{getNestedValue(datum, cell.name)}</TableCell>
                     ))}
                 </TableRow>

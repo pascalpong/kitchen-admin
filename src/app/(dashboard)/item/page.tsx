@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Paper } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import DataTable from "./DataTable";
 import { useCreateItemsMutation, useGetItemsQuery } from "@/api/ItemService";
 import CreateItems from "./CreateItems";
@@ -14,8 +14,16 @@ const headCells = [
     label: "Full name",
   },
   {
-    name: "User.name",
-    label: "Created by",
+    name: "price",
+    label: "Price",
+  },
+  {
+    name: "Category.name",
+    label: "Category",
+  },
+  {
+    name: "image",
+    label: "Image",
   },
 ];
 
@@ -30,12 +38,17 @@ const UserTable = () => {
   const [createItems] = useCreateItemsMutation();
   const [toClear, setToClear] = useState<boolean>(false);
 
+  const toCreateCategories = useCallback(async (items: any[]) => { 
+    const itemList = await createItems({ items });
+    console.log(itemList)
+  }, [createItems]);
+
   useEffect(() => {
     if (refetchData) {
       refetch();
       setRefetchData(false);
     }
-  }, [refetchData]);
+  }, [refetchData, refetch]);
 
   useEffect(() => {
     if (categoryList) {
@@ -51,20 +64,11 @@ const UserTable = () => {
     }
   }, [itemList]);
 
-  const toCreateCategories = async (items: any[]) => { 
-    const itemList = await createItems({ items });
-    console.log(itemList)
-    // if (categories.data.success) {
-    //   setToClear(true);
-    //   refetch();
-    // }
-  };
-
   useEffect(() => {
     if (valueList) {
       toCreateCategories(valueList);
     }
-  }, [valueList]);
+  }, [valueList, toCreateCategories]);
 
   return (
     <>
